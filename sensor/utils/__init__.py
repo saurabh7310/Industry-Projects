@@ -6,6 +6,13 @@ import os, sys
 
 def get_collection_as_dataframe()->pd.DataFrame:
     try:
+        '''
+            This function returns collection as dataframe
+            database_name = database name
+            collection_name = collection name 
+            **********************************************
+            returns pandas dataframe as a collection
+        '''
         logging.info(f"Reading data from Database: {database_name} and collection: {collection_name}")
         df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
         logging.info(f"Found Columns: {df.columns}")
@@ -14,5 +21,6 @@ def get_collection_as_dataframe()->pd.DataFrame:
             df = df.drop("_id", axis=1)
         logging.info(f"Row and Columns in df: {df.shape}")
         return df 
+
     except Exception as e:
         SensorException(e, sys)
